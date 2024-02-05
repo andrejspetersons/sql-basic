@@ -1,52 +1,79 @@
 import _ from "lodash";
-import { Database } from "../src/database";
 import { CsvLoader } from "../src/data/csv-loader";
+import { Movie } from "../src/data/types";
+import { Database } from "../src/database";
 import {
   selectActorByName,
   selectCount,
-  selectKeyword,
   selectDirector,
   selectGenre,
-  selectProductionCompany,
-  selectMovie
+  selectKeyword,
+  selectMovie,
+  selectProductionCompany
 } from "../src/queries/select";
 import {
   ACTORS,
-  KEYWORDS,
   DIRECTORS,
   GENRES,
-  PRODUCTION_COMPANIES,
-  MOVIES
+  KEYWORDS,
+  MOVIES,
+  PRODUCTION_COMPANIES
 } from "../src/table-names";
-import { Movie } from "../src/data/types";
 import { escape } from "../src/utils";
 import { minutes } from "./utils";
 
 const insertActors = (actors: string[]) => {
   return (
     `insert into actors (full_name) values` +
-    actors.map(actor => `('${escape(actor)}')`).join(",")
+    actors.map(actor => `('${escape(actor)}')`).flat().join(",")
   );
 };
 
 const insertKeywords = (keywords: string[]) => {
-  throw new Error(`todo`);
+  return (
+    `insert into keywords (keyword) values`+
+    keywords.map(keyword=> `('${escape(keyword)}')`).flat().join(",")
+  );
 };
 
 const insertDirectors = (directors: string[]) => {
-  throw new Error(`todo`);
+  return(
+    `insert into directors (full_name) values`+
+    directors.map(director=> `('${escape(director)}')`).flat().join(",")
+  );
 };
 
 const insertGenres = (genres: string[]) => {
-  throw new Error(`todo`);
+  return(
+    `insert into genres (genre) values`+
+    genres.map(genre=> `('${escape(genre)}')`).flat().join(",")
+  );
 };
 
 const insertProductionCompanies = (companies: string[]) => {
-  throw new Error(`todo`);
+  return(
+    `insert into production_companies (company_name) values`+
+    companies.map(company=> `('${escape(company)}')`).flat().join(",")
+  );
 };
 
 const insertMovies = (movies: Movie[]) => {
-  throw new Error(`todo`);
+  return(
+    `insert into movies (imdb_id,
+      popularity,
+      budget,
+      budget_adjusted,
+      revenue,
+      revenue_adjusted,
+      original_title,
+      homepage,
+      tagline,
+      overview,
+      runtime,
+      release_date) values`+
+    movies.map(movie=> `('${escape(movie.imdbId)}',${movie.popularity},${movie.budget},${movie.budgetAdjusted},${movie.revenue},${movie.revenueAdjusted},'${escape(movie.originalTitle)}','${escape(movie.homepage)}',NULL,'${escape(movie.overview)}',${movie.runtime},'${escape(movie.releaseDate)}')`
+    ).flat().join(",")
+  );
 };
 
 describe("Insert Flat Data", () => {
