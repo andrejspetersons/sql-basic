@@ -1,8 +1,8 @@
-import sqlite3 from "sqlite3";
 import fs from "fs";
 import { resolve } from "path";
+import sqlite3 from "sqlite3";
 
-const sql = sqlite3.verbose();
+const sql = sqlite3.verbose();//place where creates sqlite3 database files
 
 const DB_DIR = resolve(__dirname, `../_db`);
 
@@ -50,7 +50,7 @@ export class SQLiteWrapper {
     return new Promise((resolve, reject) => {
       fs.unlink(this.pathToFile, err => {
         if (err) return reject(err);
-        resolve();
+        resolve(); //?
       });
     });
   }
@@ -63,7 +63,7 @@ export class SQLiteWrapper {
       await new Promise((resolve, reject) => {
         fs.mkdir(DB_DIR, err => {
           if (err) return reject(err);
-          resolve();
+          resolve(); //?
         });
       });
     }
@@ -79,7 +79,7 @@ export class SQLiteWrapper {
     await new Promise((resolve, reject) => {
       fs.copyFile(sourcePath, targetPath, err => {
         if (err) return reject(err);
-        resolve();
+        resolve(); //?
       });
     });
     return new SQLiteWrapper(targetPath);

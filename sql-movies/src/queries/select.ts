@@ -19,27 +19,27 @@ export const selectProductionCompany = (company: string): string => {
 };
 
 export const selectMovieById = (id: number): string => {
-  return `SELECT movie_id FROM movie_ratings WHERE movie_id=${id}`;
+  return `SELECT * FROM movies WHERE id=${id}`;
 };
 
 export const selectGenreById = (id: number): string => {
-  throw new Error(`todo`);
+  return `SELECT * FROM movie_genres WHERE genre_id=${id}`;
 };
 
 export const selectDirectorById = (id: number): string => {
-  throw new Error(`todo`);
+  return `SELECT * FROM movie_directors WHERE director_id=${id}`;
 };
 
 export const selectActorById = (id: number): string => {
-  throw new Error(`todo`);
+  return `SELECT * FROM movie_actors WHERE actor_id=${id}`;
 };
 
 export const selectKeywordById = (id: number): string => {
-  throw new Error(`todo`);
+  return `SELECT * FROM movie_keywords WHERE keyword_id=${id}`
 };
 
 export const selectProductionCompanyById = (id: number): string => {
-  throw new Error(`todo`);
+  return `SELECT * FROM movie_production_companies WHERE company_id=${id}`
 };
 
 export const selectMovie = (imdbId: string): string => {
@@ -51,7 +51,7 @@ export const selectMovieId = (imdbId: string): string => {
 };
 
 export const selectRatingsByUserID = (userId: number): string => {
-  return `SELECT rating from movie_ratings WHERE user_id=${userId}`
+  return `SELECT * FROM movie_ratings WHERE user_id=${userId}`
 };
 
 export const selectGenresByMovieId = (movieId: number): string => {

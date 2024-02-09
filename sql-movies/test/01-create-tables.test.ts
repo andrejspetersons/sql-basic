@@ -35,6 +35,7 @@ const CREATE_MOVIE_RATINGS_TABLE =
   rating real NOT NULL,
   time_created text NOT NULL,
   CONSTRAINT PK_Ratings PRIMARY KEY (user_id,movie_id)
+  FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE RESTRICT
 )`;
 
 const CREATE_ACTORS_TABLE = 
