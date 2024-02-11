@@ -1,24 +1,59 @@
-import {
-  ALL_RELATIONSHIP_TABLES,
-  MOVIE_GENRES,
-  MOVIE_KEYWORDS,
-  MOVIE_ACTORS,
-  MOVIE_DIRECTORS,
-  MOVIE_PRODUCTION_COMPANIES
-} from "../src/table-names";
 import { Database } from "../src/database";
 import { tableInfo } from "../src/queries/table-info";
-import { minutes, Log } from "./utils";
+import {
+  ALL_RELATIONSHIP_TABLES,
+  MOVIE_ACTORS,
+  MOVIE_DIRECTORS,
+  MOVIE_GENRES,
+  MOVIE_KEYWORDS,
+  MOVIE_PRODUCTION_COMPANIES
+} from "../src/table-names";
+import { Log, minutes } from "./utils";
 
-const CREATE_MOVIE_GENRES_TABLE = ``;
+const CREATE_MOVIE_GENRES_TABLE = 
+`CREATE TABLE movie_genres(
+  movie_id integer NOT NULL,
+  genre_id integer NOT NULL,
+  PRIMARY KEY (movie_id,genre_id),
+  FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE RESTRICT,
+  FOREIGN KEY (genre_id) REFERENCES genres(id) ON DELETE RESTRICT
+)`;
 
-const CREATE_MOVIE_ACTORS_TABLE = ``;
+const CREATE_MOVIE_ACTORS_TABLE = 
+`CREATE TABLE movie_actors(
+  movie_id integer NOT NULL,
+  actor_id integer NOT NULL,
+  PRIMARY KEY (movie_id,actor_id),
+  FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE RESTRICT,
+  FOREIGN KEY (actor_id) REFERENCES actors(id) ON DELETE RESTRICT
+)`;
 
-const CREATE_MOVIE_DIRECTORS_TABLE = ``;
+const CREATE_MOVIE_DIRECTORS_TABLE = 
+`CREATE TABLE movie_directors(
+  movie_id integer NOT NULL,
+  director_id integer NOT NULL,
+  PRIMARY KEY (movie_id,director_id),
+  FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE RESTRICT,
+  FOREIGN KEY (director_id) REFERENCES directors(id) ON DELETE RESTRICT
+)`;
 
-const CREATE_MOVIE_KEYWORDS_TABLE = ``;
+const CREATE_MOVIE_KEYWORDS_TABLE = 
+`CREATE TABLE movie_keywords(
+  movie_id integer NOT NULL,
+  keyword_id integer NOT NULL,
+  PRIMARY KEY (movie_id,keyword_id),
+  FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE RESTRICT,
+  FOREIGN KEY (keyword_id) REFERENCES keywords(id) ON DELETE RESTRICT
+)`;
 
-const CREATE_MOVIE_PRODUCTION_COMPANIES_TABLE = ``;
+const CREATE_MOVIE_PRODUCTION_COMPANIES_TABLE = 
+`CREATE TABLE movie_production_companies(
+  movie_id integer NOT NULL,
+  company_id integer NOT NULL,
+  PRIMARY KEY (movie_id,company_id),
+  FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE RESTRICT,
+  FOREIGN KEY (company_id) REFERENCES production_companies(id) ON DELETE RESTRICT
+)`;
 
 describe("Insert Combined Data", () => {
   let db: Database;

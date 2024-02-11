@@ -3,7 +3,7 @@ import { SQLiteWrapper } from "./sqlite-wrapper";
 export class Database {
   private sql: SQLiteWrapper;
 
-  constructor(sql: SQLiteWrapper) {
+  constructor(sql: SQLiteWrapper) {//interactions with database
     this.sql = sql;
   }
 

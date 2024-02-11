@@ -1,10 +1,10 @@
 import csv from "csvtojson";
-import { resolve } from "path";
 import _ from "lodash";
 import moment from "moment";
-import { Rating, Movie } from "./types";
+import { resolve } from "path";
+import { Movie, Rating } from "./types"; //process data from csv files movie and ratings
 
-const DATA_DIR = resolve(__dirname, "../../_data");
+const DATA_DIR = resolve(__dirname, "../../_data");  
 
 const toArray = (col: any): string[] => {
   return _.uniq((col as string).split("|").map(it => it.trim())).filter(
@@ -12,7 +12,7 @@ const toArray = (col: any): string[] => {
   );
 };
 
-const toMovie = (line: any) => {
+const toMovie = (line: any) => { //converting in movie object
   return {
     imdbId: line.imdb_id,
     popularity: parseFloat(line.popularity),
@@ -34,7 +34,7 @@ const toMovie = (line: any) => {
   } as Movie;
 };
 
-const toRating = (line: any) => {
+const toRating = (line: any) => { //converting in rating object
   const unix = moment.unix(parseInt(line.timestamp));
   return {
     userId: parseInt(line.user_id),

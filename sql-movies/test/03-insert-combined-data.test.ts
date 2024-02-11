@@ -1,17 +1,20 @@
 import _ from "lodash";
-import { Database } from "../src/database";
 import { CsvLoader } from "../src/data/csv-loader";
+import { Rating } from "../src/data/types";
+import { Database } from "../src/database";
 import {
   selectCount,
-  selectRatingsByUserID,
-  selectMovieId
+  selectMovieId,
+  selectRatingsByUserID
 } from "../src/queries/select";
 import { MOVIE_RATINGS } from "../src/table-names";
-import { Rating } from "../src/data/types";
 import { minutes } from "./utils";
 
 const insertRatings = (movieId: number, ratings: Rating[]) => {
-  throw new Error(`todo`);
+  return(
+  `insert into movie_ratings(movie_id,user_id,rating,time_created) values`+
+    ratings.map(rating=>`(${movieId},${rating.userId},${rating.rating},'${rating.time_created}')`).join(",")
+  );
 };
 
 describe("Insert Combined Data", () => {
@@ -28,8 +31,9 @@ describe("Insert Combined Data", () => {
       const ratingsByImdbId = _.groupBy(await CsvLoader.ratings(), "imdbId");
 
       for (const imdbId of Object.keys(ratingsByImdbId)) {
-        const movieId = (await db.selectSingleRow(selectMovieId(imdbId))).id;
-        const chunks = _.chunk(ratingsByImdbId[imdbId], 500);
+        const movieId = (await db.selectSingleRow(selectMovieId(imdbId))).id;//?
+        console.log(`imdbId: ${imdbId}, movieId: ${movieId}`);
+        const chunks = _.chunk(ratingsByImdbId[imdbId], 500);//500
         for (const ch of chunks) {
           await db.insert(insertRatings(movieId, ch));
         }
@@ -47,6 +51,6 @@ describe("Insert Combined Data", () => {
 
       done();
     },
-    minutes(10)
+    minutes(400)
   );
 });
