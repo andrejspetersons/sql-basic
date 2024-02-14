@@ -128,7 +128,7 @@ describe("Insert Data", () => {
 
         const appCategoriesRows = await db.selectMultipleRows(selectAppCategoriesByAppId(1056));
         expect(appCategoriesRows).toEqual([
-            { app_title: "mmuze", category_id: 1, category_title: "Store design" },//category_title replaced with category_id
+            { app_title: "mmuze", category_id: 1, category_title: "Store design" },
             { app_title: "mmuze", category_id: 2, category_title: "Sales and conversion optimization" },
             { app_title: "mmuze", category_id: 3, category_title: "Marketing" },
             { app_title: "mmuze", category_id: 5, category_title: "Customer support" }
